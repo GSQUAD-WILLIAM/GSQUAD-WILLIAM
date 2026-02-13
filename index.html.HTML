@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREAT STUDIOS | Visual Excellence</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* LED Border Effect */
+        .led-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            overflow: hidden;
+        }
+        
+        .led-top, .led-bottom {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                #ff0000, #ff8000, #ffff00, #80ff00, 
+                #00ff00, #00ff80, #00ffff, #0080ff, 
+                #0000ff, #8000ff, #ff00ff, #ff0080);
+            background-size: 1200% 100%;
+            animation: ledAnimation 3s linear infinite;
+        }
+        
+        .led-top {
+            top: 0;
+        }
+        
+        .led-bottom {
+            bottom: 0;
+        }
+        
+        .led-left, .led-right {
+            position: absolute;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(0deg, 
+                #ff0000, #ff8000, #ffff00, #80ff00, 
+                #00ff00, #00ff80, #00ffff, #0080ff, 
+                #0000ff, #8000ff, #ff00ff, #ff0080);
+            background-size: 100% 1200%;
+            animation: ledAnimationVertical 3s linear infinite;
+        }
+        
+        .led-left {
+            left: 0;
+        }
+        
+        .led-right {
+            right: 0;
+        }
+        
+        @keyframes ledAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 0%;
+            }
+        }
+        
+        @keyframes ledAnimationVertical {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 0% 100%;
+            }
+        }
+        
+        /* LED Bulbs with Star Reflections */
+        .led-bulb {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            z-index: 10001;
+            box-shadow: 0 0 20px 5px currentColor;
+            animation: bulbGlow 2s infinite alternate;
+        }
+        
+        .led-bulb.top-left {
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 30% 30%, #ff0000, transparent 70%);
+            color: #ff0000;
+        }
+        
+        .led-bulb.top-right {
+            top: 0;
+            right: 0;
+            background: radial-gradient(circle at 70% 30%, #00ff00, transparent 70%);
+            color: #00ff00;
+        }
+        
+        .led-bulb.bottom-left {
+            bottom: 0;
+            left: 0;
+            background: radial-gradient(circle at 30% 70%, #0000ff, transparent 70%);
+            color: #0000ff;
+        }
+        
+        .led-bulb.bottom-right {
+            bottom: 0;
+            right: 0;
+            background: radial-gradient(circle at 70% 70%, #ffff00, transparent 70%);
+            color: #ffff00;
+        }
+        
+        @keyframes bulbGlow {
+            0% {
+                box-shadow: 0 0 10px 2px currentColor;
+            }
+            100% {
+                box-shadow: 0 0 25px 8px currentColor, 0 0 40px 15px rgba(255, 255, 255, 0.5);
+            }
+        }
+        
+        .star-reflection {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: starTwinkle 3s infinite;
+        }
+        
+        .star-reflection:nth-child(1) {
+            top: 5px;
+            left: 5px;
+            animation-delay: 0s;
+        }
+        
+        .star-reflection:nth-child(2) {
+            top: 5px;
+            right: 5px;
+            animation-delay: 0.5s;
+        }
+        
+        .star-reflection:nth-child(3) {
+            bottom: 5px;
+            left: 5px;
+            animation-delay: 1s;
+        }
+        
+        .star-reflection:nth-child(4) {
+            bottom: 5px;
+            right: 5px;
+            animation-delay: 1.5s;
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 8px;
+            left: 8px;
+            width: calc(100% - 16px);
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            display: inline-block;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .logo-text span {
+            display: inline-block;
+            position: relative;
+            animation: flip 2s infinite;
+            animation-delay: calc(.2s * var(--i));
+        }
+        
+        @keyframes flip {
+            0%, 80% {
+                transform: rotateY(360deg);
+            }
+        }
+        
+        .logo span {
+            color: #ff6b6b;
+        }
+        
+        /* Lion Logo */
+        .lion-logo {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 3px;
+            transition: all 0.5s ease;
+        }
+        
+        .lion-logo:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .lion-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+        
+        .nav-links a.active {
+            color: #ff6b6b;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 8px;
+            flex-direction: column;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1630&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: zoomEffect 20s infinite alternate;
+        }
+        
+        @keyframes zoomEffect {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 5.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGlow 3s infinite alternate;
+            position: relative;
+            line-height: 1.1;
+        }
+        
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+            }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        /* Stats Dashboard */
+        .stats-dashboard {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 107, 107, 0.3);
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .dashboard-item {
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: rgba(26, 26, 26, 0.7);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dashboard-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 107, 107, 0.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.2);
+        }
+        
+        .dashboard-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+        
+        .dashboard-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .dashboard-text {
+            font-size: 1.1rem;
+            color: #aaa;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .dashboard-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .disco-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .disco-light {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.7;
+            animation: discoMove 10s infinite linear;
+        }
+        
+        .disco-light:nth-child(1) {
+            background: #ff6b6b;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .disco-light:nth-child(2) {
+            background: #4ecdc4;
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .disco-light:nth-child(3) {
+            background: #ffd166;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        .disco-light:nth-child(4) {
+            background: #118ab2;
+            bottom: 10%;
+            right: 20%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes discoMove {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(100px, 50px) scale(1.2);
+            }
+            50% {
+                transform: translate(50px, 100px) scale(0.8);
+            }
+            75% {
+                transform: translate(-50px, 50px) scale(1.1);
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+        
+        /* Wedding Video Section */
+        .wedding-video {
+            padding: 100px 0;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: perspective(1000px) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .video-container:hover {
+            transform: perspective(1000px) rotateX(0deg);
+        }
+        
+        .video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.2), rgba(78, 205, 196, 0.2));
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .wedding-video iframe {
+            width: 100%;
+            height: 500px;
+            display: block;
+            border: none;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+        
+        .video-overlay:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 107, 107, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .play-button:hover {
+            background: rgba(255, 107, 107, 1);
+            transform: scale(1.1);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(255, 107, 107, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+            }
+        }
+        
+        .video-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .video-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .video-title p {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            perspective: 1000px;
+        }
+        
+        .title-text {
+            display: inline-block;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .title-text span {
+            display: inline-block;
+            position: relative;
+            animation: flip 2s infinite;
+            animation-delay: calc(.2s * var(--i));
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 300px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .portfolio-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .like-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .like-btn:hover {
+            background: rgba(255, 107, 107, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .like-btn.liked {
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+        }
+        
+        .like-count {
+            position: absolute;
+            top: 15px;
+            right: 65px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            padding: 5px 10px;
+            color: white;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: #111;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .service-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .service-card:hover .service-img {
+            transform: scale(1.05);
+        }
+        
+        .service-content {
+            padding: 25px;
+        }
+        
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        
+        .testimonial-content {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .testimonial-content::before {
+            content: '"';
+            font-size: 5rem;
+            color: #ff6b6b;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+        
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ff6b6b;
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .testimonial-dot.active {
+            background: #ff6b6b;
+            transform: scale(1.2);
+        }
+        
+        /* Team Section */
+        .team {
+            padding: 100px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .team-member.animate {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease;
+        }
+        
+        .member-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 5px solid #ff6b6b;
+            transition: all 0.3s;
+            filter: grayscale(30%);
+        }
+        
+        .team-member:hover .member-img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+            border-color: #4ecdc4;
+        }
+        
+        .team-member h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .team-member p {
+            color: #aaa;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(rgba(10,10,10,0.9), rgba(10,10,10,0.9)), 
+                        url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(26, 26, 26, 0.7);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            background: rgba(255, 107, 107, 0.1);
+            transform: translateX(10px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+        
+        .contact-item:hover .contact-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        .contact-form {
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateX(30px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .contact-form.animate {
+            opacity: 1;
+            transform: translateX(0);
+            transition: all 0.5s ease;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(42, 42, 42, 0.8);
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6b6b;
+            transform: translateX(5px);
+        }
+        
+        .social-platforms {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-platform {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.5s;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        
+        .social-platform:hover {
+            transform: rotateY(180deg);
+        }
+        
+        .social-platform i {
+            transition: all 0.5s;
+        }
+        
+        .social-platform:hover i {
+            transform: rotateY(180deg);
+        }
+        
+        .facebook {
+            background: linear-gradient(45deg, #3b5998, #8b9dc3);
+        }
+        
+        .twitter {
+            background: linear-gradient(45deg, #1da1f2, #aab8c2);
+        }
+        
+        .instagram {
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+        }
+        
+        .youtube {
+            background: linear-gradient(45deg, #ff0000, #ff3333);
+        }
+        
+        .whatsapp {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+        }
+        
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        
+        /* Floating Elements Animation */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 107, 107, 0.3);
+            animation: float 15s infinite linear;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            background: rgba(255, 107, 107, 0.3);
+        }
+        
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 2s;
+            background: rgba(78, 205, 196, 0.3);
+        }
+        
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 4s;
+            background: rgba(255, 209, 102, 0.3);
+        }
+        
+        .floating-element:nth-child(4) {
+            bottom: 20%;
+            right: 25%;
+            animation-delay: 6s;
+            background: rgba(118, 178, 255, 0.3);
+        }
+        
+        .floating-element:nth-child(5) {
+            top: 50%;
+            left: 5%;
+            animation-delay: 8s;
+            background: rgba(170, 102, 255, 0.3);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(100px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(50px, 100px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-50px, 50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: #1a1a1a;
+                z-index: 1001;
+                transition: right 0.3s;
+                padding: 80px 20px 20px;
+                overflow-y: auto;
+            }
+            
+            .mobile-menu.active {
+                right: 0;
+            }
+            
+            .mobile-menu .nav-links {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .mobile-menu .nav-links li {
+                margin: 0 0 15px 0;
+            }
+            
+            .mobile-menu .nav-links a {
+                font-size: 1.1rem;
+            }
+            
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .contact-form {
+                padding: 25px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .wedding-video iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- LED Border -->
+    <div class="led-border">
+        <div class="led-top"></div>
+        <div class="led-bottom"></div>
+        <div class="led-left"></div>
+        <div class="led-right"></div>
+    </div>
+
+    <!-- LED Bulbs with Star Reflections -->
+    <div class="led-bulb top-left">
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+    </div>
+    <div class="led-bulb top-right">
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+    </div>
+    <div class="led-bulb bottom-left">
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+    </div>
+    <div class="led-bulb bottom-right">
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+        <div class="star-reflection"></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <div class="lion-logo">
+                        <img src="IMAGES/WhatsApp Image 2025-09-30 at 02.21.26_31ddcc7c.jpg" alt="greatstudios Logo">
+                    </div>
+                    <div class="logo-text">
+                        <span style="--i:0">G</span>
+                        <span style="--i:1">R</span>
+                        <span style="--i:2">E</span>
+                        <span style="--i:3">A</span>
+                        <span style="--i:4">T</span>
+                        <span> </span>
+                        <span style="--i:5">S</span>
+                        <span style="--i:6">T</span>
+                        <span style="--i:7">U</span>
+                        <span style="--i:8">D</span>
+                        <span style="--i:9">I</span>
+                        <span style="--i:10">O</span>
+                        <span style="--i:11">S</span>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#dashboard">Stats</a></li>
+                    <li><a href="#wedding">Wedding</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <button class="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#dashboard">Stats</a></li>
+            <li><a href="#wedding">Wedding</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>GREAT STUDIOS</h1>
+            <p>Visual Stories That Captivate</p>
+            <p>We are a creative studio specializing in photography, graphic design, and visual storytelling. Our passion is transforming ideas into stunning visual experiences.</p>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn">View Our Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Dashboard -->
+    <section class="stats-dashboard" id="dashboard">
+        <div class="disco-lights">
+            <div class="disco-light"></div>
+            <div class="disco-light"></div>
+            <div class="disco-light"></div>
+            <div class="disco-light"></div>
+        </div>
+        <div class="container">
+            <div class="dashboard-container">
+                <div class="section-title">
+                    <h2>Our Achievements</h2>
+                    <p>Years of excellence in visual storytelling</p>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-item">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="dashboard-number" data-target="150">0</div>
+                        <div class="dashboard-text">Projects Completed</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-smile"></i>
+                        </div>
+                        <div class="dashboard-number" data-target="50">0</div>
+                        <div class="dashboard-text">Happy Clients</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="dashboard-number" data-target="15">0</div>
+                        <div class="dashboard-text">Awards Won</div>
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="dashboard-number" data-target="5">0</div>
+                        <div class="dashboard-text">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wedding Video Section -->
+    <section class="wedding-video" id="wedding">
+        <div class="container">
+            <div class="video-title">
+                <h2>GREAT'S STUDIOS Capturing moments}</h2>
+                <p>Experience the magic of our wedding cinematography</p>
+            </div>
+            <div class="video-container">
+                <iframe src="c3aaad7c0d5a23ce93588227d62f4e4c (1).mp4" title="Wedding Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 <iframe src="055b62a285133b8a1fdc7a8b5338bdb7_1731243144987.mp4" title="Wedding Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 <iframe src="26045c16be0b4ffd79e91e48b7f386f2.mp4" title="Wedding Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                 <iframe src="dd113a5ac2eda96a4fb5f6c8aeae1e93_1731243246402.mp4" title="Wedding Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-overlay">
+                <div class="video-overlay">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>
+                    <div class="title-text">
+                        <span style="--i:0">O</span>
+                        <span style="--i:1">u</span>
+                        <span style="--i:2">r</span>
+                        <span style="--i:3"> </span>
+                        <span style="--i:4">S</span>
+                        <span style="--i:5">e</span>
+                        <span style="--i:6">r</span>
+                        <span style="--i:7">v</span>
+                        <span style="--i:8">i</span>
+                        <span style="--i:9">c</span>
+                        <span style="--i:10">e</span>
+                        <span style="--i:11">s</span>
+                    </div>
+                </h2>
+                <p>Comprehensive creative solutions for your brand</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-service="photography">
+                    <img src="IMAGES/WhatsApp Image 2025-09-30 at 02.21.26_31ddcc7c.jpg" alt="Photography" class="service-img">
+                    <div class="service-content">
+                        <h3>Photography</h3>
+                        <p>Professional photography services including product, portrait, event, and architectural photography with a creative touch.</p>
+                    </div>
+                </div>
+                <div class="service-card" data-service="design">
+                    <img src="IMAGES/WhatsApp Image 2025-09-30 at 02.21.26_33bc1312.jpg" class="service-img">
+                    <div class="service-content">
+                        <h3>Graphic Design</h3>
+                        <p>Creative visual solutions including branding, logo design, marketing materials, and custom illustrations.</p>
+                    </div>
+                </div>
+                <div class="service-card" data-service="uiux">
+                    <img src="IMAGES/WhatsApp Image 2025-09-30 at 02.21.26_31ddcc7c.jpg" alt="UI/UX Design" class="service-img">
+                    <div class="service-content">
+                        <h3>UI/UX Design</h3>
+                        <p>User-centered design for websites and applications that combine aesthetics with functionality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>
+                    <div class="title-text">
+                        <span style="--i:0">O</span>
+                        <span style="--i:1">u</span>
+                        <span style="--i:2">r</span>
+                        <span style="--i:3"> </span>
+                        <span style="--i:4">P</span>
+                        <span style="--i:5">o</span>
+                        <span style="--i:6">r</span>
+                        <span style="--i:7">t</span>
+                        <span style="--i:8">f</span>
+                        <span style="--i:9">o</span>
+                        <span style="--i:10">l</span>
+                        <span style="--i:11">i</span>
+                        <span style="--i:12">o</span>
+                    </div>
+                </h2>
+                <p>A showcase of our latest creative projects</p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="IMAGES/WhatsApp Image 2025-09-30 at 02.21.26_31ddcc7c.jpg" alt="Project 1" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Brand Identity</h3>
+                        <p>Visual identity for a modern tech company</p>
+                    </div>
+                    <button class="like-btn" data-id="1">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="IMAGES/WhatsApp Image 2025-09-30 at 02.21.26_33bc1312.jpg" alt="Project 2" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Product Photography</h3>
+                        <p>Lifestyle product shots for a fashion brand</p>
+                    </div>
+                    <button class="like-btn" data-id="2">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                    </div>
+                </div>
+                 <div class="portfolio-item">
+                    <img src="IMAGES/ARCHTECT.jpeg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="1689937738169.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="1689937742409.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="1689937749225.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="1689937759534.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="1689937762912.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="1689937769511.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="IMAGES/8ebb633d-afc6-4668-af82-8c04371b96ad.jpeg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="IMAGES/9a2b2a7e-ea01-422e-b001-859c9c19d1ab.jpeg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="IMAGES/15e2323d-86f2-490b-922c-50e9afaf822b.jpeg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                     <div class="portfolio-item">
+                    <img src="IMAGES/018bcb6f-2dd0-40bb-a779-90cc5db4cf17.jpeg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                <div class="portfolio-item">
+                    <img src="IMG_20240806_124527_898 (1).jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="Screenshot_2024-10-04-15-35-13-27_41a74ddf68be21faad2fbbb691b15143.jpg" alt="Project 3" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>Architectural Photography</h3>
+                        <p>Modern architecture in urban environments</p>
+                    </div>
+                    <button class="like-btn" data-id="3">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                        </div>
+                    </div>
+                <div class="portfolio-item">
+                    <img src="IMAGES/WhatsApp Image 2025-09-30 at 02.21.26_33bc1312.jpg" alt="Project 4" class="portfolio-img">
+                    <div class="portfolio-overlay">
+                        <h3>UI/UX Design</h3>
+                        <p>Mobile app interface for a financial service</p>
+                    </div>
+                    <button class="like-btn" data-id="4">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <div class="like-count">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Client Testimonials</h2>
+                <p>What our clients say about our work</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-track">
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">Working with GREAT STUDIOS transformed our brand identity. Their attention to detail and creative vision exceeded our expectations. The final deliverables were stunning and perfectly captured our company's essence.</p>
+                            <div class="testimonial-author">
+                                <img src="IMG_20250407_084201.jpg" alt="Client" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>BENSON WAMAE</h4>
+                                    <p>CEO, TechVision Inc.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">The photography services provided by GREAT STUDIOS were exceptional. They captured our products in a way that truly highlighted their features and appeal. Our sales increased by 30% after using their images in our marketing campaigns.</p>
+                            <div class="testimonial-author">
+                                <img src="IMG_20250407_084201.jpg" alt="Client" class="author-avatar">
+                                <div class="author-info">
+                                    <h4> Williams</h4>
+                                    <p>Marketing Director, StyleCo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <p class="testimonial-text">The UI/UX design for our mobile app was flawless. GREAT STUDIOS understood our users' needs and created an intuitive interface that received rave reviews. Their professionalism and expertise made the entire process smooth and enjoyable.</p>
+                            <div class="testimonial-author">
+                                <img src="Screenshot_2024-10-04-15-35-13-27_41a74ddf68be21faad2fbbb691b15143.jpg" alt="Client" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>NGATHA</h4>
+                                    <p>Product Manager, FinTech Solutions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav">
+                    <div class="testimonial-dot active"></div>
+                    <div class="testimonial-dot"></div>
+                    <div class="testimonial-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>
+                    <div class="title-text">
+                        <span style="--i:0">O</span>
+                        <span style="--i:1">u</span>
+                        <span style="--i:2">r</span>
+                        <span style="--i:3"> </span>
+                        <span style="--i:4">T</span>
+                        <span style="--i:5">e</span>
+                        <span style="--i:6">a</span>
+                        <span style="--i:7">m</span>
+                    </div>
+                </h2>
+                <p>The creative minds behind our studio</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="IMG_20240806_124527_898 (1).jpg" alt="NGATHA" class="member-img">
+                    <h3>WILLFOR</h3>
+                    <p>Creative Director</p>
+                </div>
+                <div class="team-member">
+                    <img src="2be57a7c7903471d800706c8bc9d44df-1.jpg" alt="WILLIS" class="member-img">
+                    <h3>WLLIS</h3>
+                    <p>Lead Photographer</p>
+                </div>
+                <div class="team-member">
+                    <img src="IMG_20250407_084201.jpg" alt="VICTOR" class="member-img">
+                    <h3>VICTOR</h3>
+                    <p>Graphic Designer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>
+                    <div class="title-text">
+                        <span style="--i:0">G</span>
+                        <span style="--i:1">e</span>
+                        <span style="--i:2">t</span>
+                        <span style="--i:3"> </span>
+                        <span style="--i:4">I</span>
+                        <span style="--i:5">n</span>
+                        <span style="--i:6"> </span>
+                        <span style="--i:7">T</span>
+                        <span style="--i:8">o</span>
+                        <span style="--i:9">u</span>
+                        <span style="--i:10">c</span>
+                        <span style="--i:11">h</span>
+                    </div>
+                </h2>
+                <p>Let's create something amazing together</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Our Studio</h3>
+                            <p>123 Creative Avenue, Design District</p>
+                            <p>New York, NY 10001</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+1 (555) 123-4567</p>
+                            <p>+1 (555) 987-6543</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>hello@greatstudios.com</p>
+                            <p>info@greatstudios.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>Business Hours</h3>
+                            <p>Monday - Friday: 9am - 6pm</p>
+                            <p>Saturday: 10am - 4pm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GREAT STUDIOS</h3>
+                    <p>We are a creative studio specializing in photography, graphic design, and visual storytelling. Our passion is transforming ideas into stunning visual experiences.</p>
+                    <div class="social-platforms">
+                        <a href="#" class="social-platform facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-platform twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-platform instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-platform youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-platform whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#dashboard">Stats</a></li>
+                        <li><a href="#wedding">Wedding</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Our Services</h3>
+                    <ul class="footer-links">
+                        <li><a class="service-link" data-service="photography">Photography</a></li>
+                        <li><a class="service-link" data-service="design">Graphic Design</a></li>
+                        <li><a class="service-link" data-service="uiux">UI/UX Design</a></li>
+                        <li><a class="service-link" data-service="branding">Branding</a></li>
+                        <li><a class="service-link" data-service="video">Video Production</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Creative Ave, NY 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> hello@greatstudios.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2025 GREAT STUDIOS. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        // Back to top functionality
+        document.querySelector('.back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+        });
+        
+        mobileMenuClose.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu .nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Update active navigation link on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.portfolio-item, .service-card, .team-member, .contact-form, .dashboard-item');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate');
+                }
+            });
+        }
+
+        // Initial call and event listener for scroll
+        animateOnScroll();
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Stats counter animation
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.dashboard-number');
+            
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const step = target / (duration / 16); // 60fps
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current);
+                }, 16);
+            });
+        }
+
+        // Initialize stats when in viewport
+        const statsSection = document.querySelector('.stats-dashboard');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+
+        // Testimonial slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        const track = document.querySelector('.testimonial-track');
+        
+        function showSlide(index) {
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            
+            track.style.transform = `translateX(-${index * 100}%)`;
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+        
+        // Auto slide
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+        
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+
+        // Wedding video play functionality
+        const playButton = document.querySelector('.play-button');
+        const videoOverlay = document.querySelector('.video-overlay');
+        const videoIframe = document.querySelector('.wedding-video iframe');
+        
+        playButton.addEventListener('click', function() {
+            videoOverlay.style.display = 'none';
+            // In a real implementation, you would play the video here
+            // For demo purposes, we'll just show an alert
+            alert('Wedding video would play here in the actual implementation');
+        });
+
+        // Floating elements animation
+        const floatingElements = document.querySelectorAll('.floating-element');
+        floatingElements.forEach(el => {
+            el.style.animationDuration = `${15 + Math.random() * 10}s`;
+        });
+    </script>
+</body>
+</html>
